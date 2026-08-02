@@ -1,0 +1,18 @@
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: time-weave-mongo
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER:-root}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-example}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE:-time_weave}
+    volumes:
+      - time-weave-mongo-data:/data/db
+
+  # Next.js 개발 서버는 로컬에서 직접 실행하고, MongoDB만 컨테이너로 띄웁니다.
+
+volumes:
+  time-weave-mongo-data:
