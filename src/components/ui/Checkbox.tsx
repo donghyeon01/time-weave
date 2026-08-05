@@ -2,6 +2,7 @@
 
 import { useId } from "react";
 import { cn } from "@/lib/cn";
+import { techniques } from "@/lib/theme-variant";
 import { Label } from "./Label";
 
 export interface CheckboxProps extends Omit<
@@ -26,7 +27,8 @@ export function Checkbox({
         id={id}
         type="checkbox"
         className={cn(
-          "h-5 w-5 cursor-pointer accent-success rounded border border-text-muted/30",
+          "h-5 w-5 cursor-pointer accent-success bg-white/80",
+          techniques.flat.base,
           className,
         )}
         onChange={(e) => onChange?.(e.target.checked)}

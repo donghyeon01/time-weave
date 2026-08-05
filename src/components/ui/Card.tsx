@@ -13,7 +13,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLElement> {
 
 export function Card({
   as = "div",
-  color = "primary",
+  color = "white",
   technique = "clay",
   className,
   children,

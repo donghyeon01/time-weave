@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 
 interface ErrorStateProps {
   message: string;
@@ -11,9 +12,11 @@ interface ErrorStateProps {
 
 export function ErrorState({ message, onRetry, className }: ErrorStateProps) {
   return (
-    <div
+    <Card
+      color="fail"
+      technique="clay"
       className={cn(
-        "flex flex-col items-center gap-3 rounded-2xl bg-fail/20 p-6 text-center",
+        "flex flex-col items-center gap-3 p-6 text-center",
         className,
       )}>
       <p className="text-fail-dark">{message}</p>
@@ -22,6 +25,6 @@ export function ErrorState({ message, onRetry, className }: ErrorStateProps) {
           다시 시도
         </Button>
       )}
-    </div>
+    </Card>
   );
 }

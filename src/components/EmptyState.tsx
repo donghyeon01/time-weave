@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 
 interface EmptyStateProps {
   message: string;
@@ -14,11 +15,14 @@ export function EmptyState({
   onAction,
 }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-2xl bg-white p-6 text-center shadow-glass">
+    <Card
+      color="white"
+      technique="glass"
+      className="flex flex-col items-center gap-3 p-6 text-center">
       <p className="text-text-muted">{message}</p>
       {actionLabel && onAction && (
         <Button onClick={onAction}>{actionLabel}</Button>
       )}
-    </div>
+    </Card>
   );
 }
