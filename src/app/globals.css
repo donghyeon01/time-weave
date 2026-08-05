@@ -50,13 +50,13 @@
 
   --shadow-clay:
     4px 8px 12px
-      color-mix(in srgb, var(--shadow-color, #393939) 20%, transparent),
-    inset -8px -8px 12px
+      color-mix(in srgb, var(--shadow-color, #393939) 15%, transparent),
+    inset -4px -4px 8px
       color-mix(in srgb, var(--shadow-color, #393939) 25%, transparent),
-    inset 8px 8px 12px rgba(255, 255, 255, 0.8);
+    inset 4px 4px 8px rgba(255, 255, 255, 0.8);
 
   --shadow-clay-pressed:
-    inset 4px 4px 6px
+    inset 4px 4px 8px
       color-mix(in srgb, var(--shadow-color, #393939) 20%, transparent),
     inset -4px -4px 8px rgba(255, 255, 255, 0.6);
 

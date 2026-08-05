@@ -1,6 +1,6 @@
 export const techniques = {
   clay: {
-    base: "rounded-2xl border border-[var(--bg-color)]/5 transition-all duration-150",
+    base: "rounded-2xl  transition-all duration-150",
     shadow: "shadow-clay",
     pressed: "active:shadow-clay-pressed",
     active: "active:translate-y-0.5 active:scale-[0.98]",
