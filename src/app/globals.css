@@ -43,6 +43,8 @@
   --color-yellow-dark: #faec05;
 
   --color-white: #ffffff;
+  --color-background: #ffffff;
+  --color-foreground: #393939;
   --color-text: #393939;
   --color-text-muted: #8e8e8e;
 
@@ -72,4 +74,11 @@ html {
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
+  font-family:
+    "Binggrae",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans KR",
+    sans-serif;
 }

@@ -2,6 +2,7 @@
 
 import { useFriends, useDeleteFriendship } from "@/hooks/useFriends";
 import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { EmptyState } from "./EmptyState";
 import { ErrorState } from "./ErrorState";
@@ -34,9 +35,11 @@ export function FriendList() {
   return (
     <ul className="space-y-3">
       {friends.map((friend) => (
-        <li
+        <Card
+          as="li"
           key={friend.id}
-          className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-glass">
+          color="white"
+          className="flex items-center justify-between p-4">
           <div>
             <p className="font-semibold text-text">{friend.nickname}</p>
             <p className="text-sm text-text-muted">{friend.email}</p>
@@ -47,7 +50,7 @@ export function FriendList() {
             className="px-3 py-1 text-xs">
             삭제
           </Button>
-        </li>
+        </Card>
       ))}
     </ul>
   );

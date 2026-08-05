@@ -18,7 +18,7 @@ export function ErrorState({ message, onRetry, className }: ErrorStateProps) {
       )}>
       <p className="text-fail-dark">{message}</p>
       {onRetry && (
-        <Button onClick={onRetry} color="primary" technique="flat">
+        <Button onClick={onRetry} color="primary">
           다시 시도
         </Button>
       )}

@@ -74,7 +74,7 @@ export default function MePage() {
     <main className="mx-auto max-w-xl p-6">
       <h1 className="text-2xl font-bold">내 정보</h1>
 
-      <Card as="section" color="primary" technique="glass" className="mt-6">
+      <Card as="section" color="primary" className="mt-6">
         <div className="flex items-center gap-4">
           <Avatar
             src={user.profileImage}

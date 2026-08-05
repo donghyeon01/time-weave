@@ -35,7 +35,6 @@ export function CalendarHeader() {
         <Button
           onClick={() => move(-1)}
           color="primary"
-          technique="flat"
           aria-label="이전"
           className="px-3 py-1">
           ◀
@@ -46,7 +45,6 @@ export function CalendarHeader() {
         <Button
           onClick={() => move(1)}
           color="primary"
-          technique="flat"
           aria-label="다음"
           className="px-3 py-1">
           ▶
@@ -59,20 +57,29 @@ export function CalendarHeader() {
             key={v}
             onClick={() => setView(v)}
             color="primary"
-            technique="flat"
-            className={`px-4 py-1 capitalize ${
+            className="px-4 py-1 capitalize"
+            style={
               view === v
-                ? "!bg-primary-dark !text-white"
-                : "!bg-white !text-text"
-            }`}>
+                ? ({
+                    "--bg-color": "var(--color-primary-dark)",
+                    "--text-color": "#ffffff",
+                  } as unknown as React.CSSProperties)
+                : undefined
+            }>
             {v === "month" ? "월" : v === "week" ? "주" : "일"}
           </Button>
         ))}
         <Button
           onClick={moveToday}
           color="primary"
-          technique="flat"
-          className="!bg-white !text-text px-4 py-1">
+          className="px-4 py-1"
+          style={
+            {
+              "--bg-color": "var(--color-white)",
+              "--text-color": "var(--color-text)",
+              "--shadow-color": "var(--color-text)",
+            } as unknown as React.CSSProperties
+          }>
           오늘
         </Button>
       </div>

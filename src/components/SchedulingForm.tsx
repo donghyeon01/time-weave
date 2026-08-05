@@ -7,7 +7,9 @@ import { format, parseISO } from "date-fns";
 import { http } from "@/lib/api";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { Textarea } from "@/components/ui/Textarea";
 import { Label } from "@/components/ui/Label";
+import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { EmptyState } from "./EmptyState";
 import { ErrorState } from "./ErrorState";
@@ -90,115 +92,123 @@ export function SchedulingForm({ onResult }: SchedulingFormProps) {
     return <ErrorState message="친구 목록을 불러오지 못했습니다." />;
   }
 
+  const isSelected = (id: string) => selectedIds.includes(id);
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-4 rounded-2xl bg-white p-6 shadow-glass">
+    <Card as="section" color="primary" className="space-y-4">
       <h2 className="text-lg font-semibold text-text">조율 조건</h2>
 
-      <div>
-        <Label htmlFor="scheduling-title">조율 제목</Label>
-        <Input
-          id="scheduling-title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="조율 제목"
-          required
-          className="mt-1"
-        />
-      </div>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <Label htmlFor="scheduling-title">조율 제목</Label>
+          <Input
+            id="scheduling-title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="조율 제목"
+            required
+            className="mt-1"
+          />
+        </div>
 
-      <div>
-        <Label htmlFor="scheduling-description">설명</Label>
-        <textarea
-          id="scheduling-description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="설명 (선택)"
-          className="mt-1 w-full rounded-xl border border-text-muted/30 bg-white px-4 py-2 text-sm text-text placeholder:text-text-muted/60 outline-none focus:border-primary-dark focus:ring-2 focus:ring-primary-dark/20"
-        />
-      </div>
+        <div>
+          <Label htmlFor="scheduling-description">설명</Label>
+          <Textarea
+            id="scheduling-description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="설명 (선택)"
+            className="mt-1"
+          />
+        </div>
 
-      <div>
-        <p className="mb-2 text-sm font-medium text-text">참여자</p>
-        {friends && friends.length > 0 ? (
-          <div className="flex flex-wrap gap-2">
-            {friends.map((friend) => (
-              <label
-                key={friend.id}
-                className={`cursor-pointer rounded-xl px-3 py-1 text-sm shadow-glass ${
-                  selectedIds.includes(friend.id)
-                    ? "bg-primary-dark text-white"
-                    : "bg-white text-text"
-                }`}>
-                <input
-                  type="checkbox"
-                  className="hidden"
-                  checked={selectedIds.includes(friend.id)}
-                  onChange={() => toggleParticipant(friend.id)}
-                />
-                {friend.nickname}
-              </label>
-            ))}
+        <div>
+          <p className="mb-2 text-sm font-medium text-text">참여자</p>
+          {friends && friends.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {friends.map((friend) => {
+                const selected = isSelected(friend.id);
+                return (
+                  <Button
+                    key={friend.id}
+                    type="button"
+                    color="primary"
+                    onClick={() => toggleParticipant(friend.id)}
+                    style={
+                      selected
+                        ? ({
+                            "--bg-color": "var(--color-primary-dark)",
+                            "--text-color": "#ffffff",
+                          } as unknown as React.CSSProperties)
+                        : undefined
+                    }
+                    className="px-3 py-1 text-xs">
+                    {friend.nickname}
+                  </Button>
+                );
+              })}
+            </div>
+          ) : (
+            <EmptyState message="선택할 친구가 없습니다." />
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div>
+            <Label htmlFor="scheduling-startDate">시작일</Label>
+            <Input
+              id="scheduling-startDate"
+              type="date"
+              value={startDate}
+              onChange={(e) =>
+                setPeriod(e.target.value, endDate || e.target.value)
+              }
+              className="mt-1"
+            />
           </div>
-        ) : (
-          <EmptyState message="선택할 친구가 없습니다." />
-        )}
-      </div>
+          <div>
+            <Label htmlFor="scheduling-endDate">종료일</Label>
+            <Input
+              id="scheduling-endDate"
+              type="date"
+              value={endDate}
+              onChange={(e) =>
+                setPeriod(startDate || e.target.value, e.target.value)
+              }
+              className="mt-1"
+            />
+          </div>
+        </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
-          <Label htmlFor="scheduling-startDate">시작일</Label>
+          <Label htmlFor="scheduling-slotMinutes">
+            슬롯 길이(분, 15~180, 선택)
+          </Label>
           <Input
-            id="scheduling-startDate"
-            type="date"
-            value={startDate}
-            onChange={(e) =>
-              setPeriod(e.target.value, endDate || e.target.value)
-            }
+            id="scheduling-slotMinutes"
+            type="number"
+            min={15}
+            max={180}
+            value={slotMinutes}
+            onChange={(e) => setSlotMinutes(e.target.value)}
+            placeholder="미입력 시 기본 블록 사용"
             className="mt-1"
           />
         </div>
-        <div>
-          <Label htmlFor="scheduling-endDate">종료일</Label>
-          <Input
-            id="scheduling-endDate"
-            type="date"
-            value={endDate}
-            onChange={(e) =>
-              setPeriod(startDate || e.target.value, e.target.value)
-            }
-            className="mt-1"
-          />
-        </div>
-      </div>
 
-      <div>
-        <Label htmlFor="scheduling-slotMinutes">
-          슬롯 길이(분, 15~180, 선택)
-        </Label>
-        <Input
-          id="scheduling-slotMinutes"
-          type="number"
-          min={15}
-          max={180}
-          value={slotMinutes}
-          onChange={(e) => setSlotMinutes(e.target.value)}
-          placeholder="미입력 시 기본 블록 사용"
-          className="mt-1"
-        />
-      </div>
+        {error && <p className="text-sm text-fail-dark">{error}</p>}
 
-      {error && <p className="text-sm text-fail-dark">{error}</p>}
-
-      <Button
-        type="submit"
-        disabled={loading || selectedIds.length === 0 || !startDate || !endDate}
-        className="w-full">
-        {loading ? "계산 중..." : "추천 슬롯 보기"}
-      </Button>
-    </form>
+        <Button
+          type="submit"
+          disabled={
+            loading || selectedIds.length === 0 || !startDate || !endDate
+          }
+          className="w-full">
+          {loading ? "계산 중..." : "추천 슬롯 보기"}
+        </Button>
+      </form>
+    </Card>
   );
 }
 
@@ -212,7 +222,7 @@ export function RecommendedSlots({ slots }: RecommendedSlotsProps) {
   }
 
   return (
-    <div className="mt-6 rounded-2xl bg-white p-6 shadow-glass">
+    <Card color="primary" className="mt-6">
       <h2 className="text-lg font-semibold text-text">추천 슬롯</h2>
       <ul className="mt-4 space-y-3">
         {slots.map((slot, index) => (
@@ -232,6 +242,6 @@ export function RecommendedSlots({ slots }: RecommendedSlotsProps) {
           </li>
         ))}
       </ul>
-    </div>
+    </Card>
   );
 }

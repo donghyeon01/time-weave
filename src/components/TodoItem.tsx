@@ -1,8 +1,11 @@
 "use client";
 
+import { format, parseISO } from "date-fns";
+import { ko } from "date-fns/locale";
 import { useDeleteTask, useUpdateTask } from "@/hooks/useTasks";
 import { Button } from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
+import { Card } from "@/components/ui/Card";
 import type { Task } from "@/types/client";
 
 interface TodoItemProps {
@@ -14,12 +17,15 @@ export function TodoItem({ task, onEdit }: TodoItemProps) {
   const updateTask = useUpdateTask();
   const deleteTask = useDeleteTask();
 
-  const toggle = () => {
-    updateTask.mutate({ id: task.id, body: { completed: !task.completed } });
+  const toggle = (checked: boolean) => {
+    updateTask.mutate({ id: task.id, body: { completed: checked } });
   };
 
   return (
-    <li className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-glass">
+    <Card
+      as="li"
+      color="white"
+      className="flex items-center justify-between p-4">
       <div className="flex items-center gap-3">
         <Checkbox
           checked={task.completed}
@@ -35,7 +41,9 @@ export function TodoItem({ task, onEdit }: TodoItemProps) {
           </p>
           {task.dueDate && (
             <p className="text-sm text-text-muted">
-              {new Date(task.dueDate).toLocaleString("ko-KR")}
+              {format(parseISO(task.dueDate), "yyyy년 M월 d일 HH:mm", {
+                locale: ko,
+              })}
             </p>
           )}
           {task.description && (
@@ -57,6 +65,6 @@ export function TodoItem({ task, onEdit }: TodoItemProps) {
           삭제
         </Button>
       </div>
-    </li>
+    </Card>
   );
 }

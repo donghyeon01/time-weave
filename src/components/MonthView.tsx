@@ -15,6 +15,7 @@ import {
 } from "date-fns";
 import { ko } from "date-fns/locale";
 import { EventCard } from "./EventCard";
+import { Card } from "@/components/ui/Card";
 import type { Event } from "@/types/client";
 
 interface MonthViewProps {
@@ -46,7 +47,7 @@ export function MonthView({
     });
 
   return (
-    <div className="rounded-2xl bg-white p-4 shadow-glass">
+    <Card color="white" className="p-4">
       <div className="mb-2 grid grid-cols-7 text-center text-sm font-semibold text-text-muted">
         {["일", "월", "화", "수", "목", "금", "토"].map((d) => (
           <div key={d}>{d}</div>
@@ -64,15 +65,7 @@ export function MonthView({
           return (
             <div
               key={day.toISOString()}
-              role="button"
-              tabIndex={0}
               onClick={() => onSelectDate(day)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  onSelectDate(day);
-                }
-              }}
               className={`flex min-h-25 cursor-pointer flex-col items-start rounded-xl p-2 text-left ${
                 isCurrentMonth ? "bg-primary/30" : "bg-white"
               } ${isToday ? "ring-2 ring-primary-dark" : ""}`}>
@@ -93,6 +86,6 @@ export function MonthView({
           );
         })}
       </div>
-    </div>
+    </Card>
   );
 }

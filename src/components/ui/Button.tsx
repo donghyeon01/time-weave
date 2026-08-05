@@ -5,8 +5,7 @@ import { cn } from "@/lib/cn";
 import { colors, type ColorKey } from "@/lib/theme";
 import { techniques, type TechniqueKey } from "@/lib/theme-variant";
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: ColorKey;
   technique?: TechniqueKey;
 }
@@ -16,11 +15,20 @@ export function Button({
   technique = "clay",
   className,
   children,
+  style,
   ...props
 }: ButtonProps) {
   const c = colors[color];
   const t = techniques[technique];
   const isGlass = technique === "glass";
+
+  const baseStyle = {
+    "--bg-color": isGlass
+      ? `color-mix(in srgb, ${c.bg} 20%, transparent)`
+      : c.bg,
+    "--text-color": c.text,
+    "--shadow-color": c.shadowColor,
+  } as React.CSSProperties;
 
   return (
     <button
@@ -35,17 +43,8 @@ export function Button({
         t.active,
         className,
       )}
-      style={
-        {
-          "--bg-color": isGlass
-            ? `color-mix(in srgb, ${c.bg} 20%, transparent)`
-            : c.bg,
-          "--text-color": c.text,
-          "--shadow-color": c.shadowColor,
-        } as React.CSSProperties
-      }
-      {...props}
-    >
+      style={{ ...baseStyle, ...style }}
+      {...props}>
       {children}
     </button>
   );

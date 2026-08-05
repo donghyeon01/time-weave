@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useCreateTask, useUpdateTask } from "@/hooks/useTasks";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { Textarea } from "@/components/ui/Textarea";
 import { Card } from "@/components/ui/Card";
 import { Label } from "@/components/ui/Label";
 import type { Task } from "@/types/client";
@@ -78,7 +79,7 @@ export function TodoForm({ editing, onDone }: TodoFormProps) {
   };
 
   return (
-    <Card as="section" color="primary" technique="glass">
+    <Card as="section" color="primary">
       <h2 className="text-lg font-semibold text-text">
         {editing ? "할 일 수정" : "할 일 추가"}
       </h2>
@@ -97,12 +98,12 @@ export function TodoForm({ editing, onDone }: TodoFormProps) {
         </div>
         <div>
           <Label htmlFor="todo-description">설명</Label>
-          <textarea
+          <Textarea
             id="todo-description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="설명 (선택)"
-            className="mt-1 w-full rounded-xl border border-text-muted/30 bg-white px-4 py-2 text-sm text-text placeholder:text-text-muted/60 outline-none focus:border-primary-dark focus:ring-2 focus:ring-primary-dark/20"
+            className="mt-1"
           />
         </div>
         <div>

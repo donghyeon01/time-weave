@@ -6,7 +6,7 @@ import { colors, type ColorKey } from "@/lib/theme";
 import { techniques, type TechniqueKey } from "@/lib/theme-variant";
 
 export interface CardProps extends React.HTMLAttributes<HTMLElement> {
-  as?: "div" | "section" | "article";
+  as?: "div" | "section" | "article" | "li";
   color?: ColorKey;
   technique?: TechniqueKey;
 }
@@ -14,7 +14,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLElement> {
 export function Card({
   as = "div",
   color = "primary",
-  technique = "glass",
+  technique = "clay",
   className,
   children,
   ...props
@@ -36,8 +36,7 @@ export function Card({
           "--shadow-color": c.shadowColor,
         } as React.CSSProperties
       }
-      {...props}
-    >
+      {...props}>
       {children}
     </Component>
   );

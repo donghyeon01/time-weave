@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useCreateEvent, useUpdateEvent } from "@/hooks/useEvents";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { Textarea } from "@/components/ui/Textarea";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Card } from "@/components/ui/Card";
 import { Label } from "@/components/ui/Label";
@@ -95,7 +96,7 @@ export function EventForm({ editing, onDone }: EventFormProps) {
   };
 
   return (
-    <Card as="section" color="primary" technique="glass">
+    <Card as="section" color="primary">
       <h2 className="text-lg font-semibold text-text">
         {editing ? "일정 수정" : "일정 추가"}
       </h2>
@@ -125,18 +126,18 @@ export function EventForm({ editing, onDone }: EventFormProps) {
         </div>
         <div>
           <Label htmlFor="event-description">설명</Label>
-          <textarea
+          <Textarea
             id="event-description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="설명 (선택)"
-            className="mt-1 w-full rounded-xl border border-text-muted/30 bg-white px-4 py-2 text-sm text-text placeholder:text-text-muted/60 outline-none focus:border-primary-dark focus:ring-2 focus:ring-primary-dark/20"
+            className="mt-1"
           />
         </div>
         <Checkbox
           label="종일"
           checked={allDay}
-          onChange={(e) => setAllDay(e.target.checked)}
+          onChange={(checked) => setAllDay(checked)}
         />
         <div>
           <Label htmlFor="event-start">시작</Label>
@@ -169,7 +170,6 @@ export function EventForm({ editing, onDone }: EventFormProps) {
               type="button"
               onClick={handleCancel}
               color="fail"
-              technique="flat"
               className="flex-1">
               취소
             </Button>

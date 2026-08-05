@@ -28,7 +28,6 @@ export default function FriendsPage() {
             key={key}
             onClick={() => setTab(key)}
             color={tab === key ? "primary" : "secondary"}
-            technique="flat"
             className="px-4 py-2 text-sm"
             aria-pressed={tab === key}>
             {label}

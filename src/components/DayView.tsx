@@ -4,6 +4,7 @@ import { format, isSameDay, parseISO } from "date-fns";
 import { ko } from "date-fns/locale";
 import { EventCard } from "./EventCard";
 import { EmptyState } from "./EmptyState";
+import { Card } from "@/components/ui/Card";
 import type { Event } from "@/types/client";
 
 interface DayViewProps {
@@ -21,7 +22,7 @@ export function DayView({ currentDate, events, onSelectEvent }: DayViewProps) {
     );
 
   return (
-    <div className="rounded-2xl bg-white p-4 shadow-glass">
+    <Card color="white" className="p-4">
       <h2 className="text-center text-xl font-bold text-text">
         {format(currentDate, "yyyy년 M월 d일 EEEE", { locale: ko })}
       </h2>
@@ -34,6 +35,6 @@ export function DayView({ currentDate, events, onSelectEvent }: DayViewProps) {
           ))
         )}
       </div>
-    </div>
+    </Card>
   );
 }

@@ -18,18 +18,15 @@ export function EventCard({ event, onSelect }: EventCardProps) {
 
   return (
     <div
-      onClick={() => onSelect?.(event)}
-      className={`rounded-xl border border-primary-accent bg-primary p-3 shadow-glass ${
-        onSelect ? "cursor-pointer" : ""
-      }`}
-      role={onSelect ? "button" : undefined}
-      tabIndex={onSelect ? 0 : undefined}
-      onKeyDown={(e) => {
-        if (onSelect && (e.key === "Enter" || e.key === " ")) {
-          e.preventDefault();
+      onClick={(e) => {
+        if (onSelect) {
+          e.stopPropagation();
           onSelect(event);
         }
-      }}>
+      }}
+      className={`rounded-xl border border-primary-accent bg-primary p-3 shadow-glass ${
+        onSelect ? "cursor-pointer" : ""
+      }`}>
       <div className="flex items-start justify-between">
         <p className="font-semibold text-primary-dark">{event.title}</p>
         <Button
@@ -38,7 +35,6 @@ export function EventCard({ event, onSelect }: EventCardProps) {
             deleteEvent.mutate(event.id);
           }}
           color="fail"
-          technique="flat"
           className="px-2 py-0.5 text-xs"
           aria-label="일정 삭제">
           삭제

@@ -11,6 +11,7 @@ import {
 } from "date-fns";
 import { ko } from "date-fns/locale";
 import { EventCard } from "./EventCard";
+import { Card } from "@/components/ui/Card";
 import type { Event } from "@/types/client";
 
 interface WeekViewProps {
@@ -34,7 +35,7 @@ export function WeekView({ currentDate, events, onSelectDate }: WeekViewProps) {
     });
 
   return (
-    <div className="grid grid-cols-7 gap-2 rounded-2xl bg-white p-4 shadow-glass">
+    <Card color="white" className="grid grid-cols-7 gap-2 p-4">
       {days.map((day) => {
         const dayEvents = eventsForDay(day);
         const today = isSameDay(day, new Date());
@@ -42,15 +43,7 @@ export function WeekView({ currentDate, events, onSelectDate }: WeekViewProps) {
         return (
           <div
             key={day.toISOString()}
-            role="button"
-            tabIndex={0}
             onClick={() => onSelectDate(day)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                onSelectDate(day);
-              }
-            }}
             className={`flex min-h-50 cursor-pointer flex-col rounded-xl p-2 text-left ${
               today ? "bg-primary/30 ring-2 ring-primary-dark" : "bg-primary/10"
             }`}>
@@ -71,6 +64,6 @@ export function WeekView({ currentDate, events, onSelectDate }: WeekViewProps) {
           </div>
         );
       })}
-    </div>
+    </Card>
   );
 }
