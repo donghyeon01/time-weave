@@ -32,5 +32,8 @@ test-results/
 # Vite
 .vite/
 
+# Devin prompts
+.devin/
+
 # Misc
 *.local
