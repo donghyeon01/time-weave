@@ -1,20 +1,68 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Binggrae";
+  src: url("/fonts/Binggrae-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Binggrae";
+  src: url("/fonts/Binggrae-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --color-primary: #3b82f6;
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #64748b;
-  --color-secondary-foreground: #ffffff;
-  --color-destructive: #ef4444;
-  --color-destructive-foreground: #ffffff;
-  --color-muted: #f1f5f9;
-  --color-muted-foreground: #64748b;
-  --color-accent: #8b5cf6;
-  --color-accent-foreground: #ffffff;
-  --color-background: #ffffff;
-  --color-foreground: #0f172a;
-  --color-border: #e2e8f0;
-  --color-ring: #3b82f6;
+  --color-primary: #d1eefe;
+  --color-primary-accent: #a0d4fd;
+  --color-primary-dark: #045baa;
+  --color-primary-dark-accent: #034a8b;
+  --color-secondary: #f8d1fe;
+  --color-secondary-accent: #eb87fc;
+  --color-secondary-dark: #a304c3;
+  --color-secondary-dark-accent: #530273;
+
+  --color-success: #adfd9f;
+  --color-success-accent: #3afa18;
+  --color-success-dark: #168703;
+
+  --color-fail: #fed1e3;
+  --color-fail-accent: #fc6ca6;
+  --color-fail-dark: #c90453;
+
+  --color-warning: #fee1d1;
+  --color-warning-accent: #fb9f41;
+  --color-warning-dark: #fa5e08;
+
+  --color-yellow: #f9fed1;
+  --color-yellow-accent: #f4fb55;
+  --color-yellow-dark: #faec05;
+
+  --color-white: #ffffff;
+  --color-text: #393939;
+  --color-text-muted: #8e8e8e;
+
+  --shadow-clay:
+    4px 8px 12px
+      color-mix(in srgb, var(--shadow-color, #393939) 20%, transparent),
+    inset -8px -8px 12px
+      color-mix(in srgb, var(--shadow-color, #393939) 25%, transparent),
+    inset 8px 8px 12px rgba(255, 255, 255, 0.8);
+
+  --shadow-clay-pressed:
+    inset 4px 4px 6px
+      color-mix(in srgb, var(--shadow-color, #393939) 20%, transparent),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.6);
+
+  --shadow-glass: 0 8px 32px
+    color-mix(in srgb, var(--shadow-color, #393939) 14%, transparent);
+
+  --shadow-glass-pressed: 0 4px 16px
+    color-mix(in srgb, var(--shadow-color, #393939) 10%, transparent);
 }
 
 html {

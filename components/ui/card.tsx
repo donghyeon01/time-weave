@@ -3,33 +3,32 @@ import { cn } from "@/lib/cn";
 import { colors, type ColorKey } from "@/lib/theme";
 import { techniques, type TechniqueKey } from "@/lib/theme-variant";
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: ColorKey;
   technique?: TechniqueKey;
+  as?: "div" | "section" | "article";
 }
 
-export function Button({
+export function Card({
   color = "primary",
   technique = "clay",
+  as: Tag = "div",
   className,
   children,
   ...props
-}: ButtonProps) {
+}: CardProps) {
   const c = colors[color];
   const t = techniques[technique];
   const isGlass = technique === "glass";
 
   return (
-    <button
+    <Tag
       className={cn(
-        "inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium",
-        "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-(--shadow-color)",
-        "bg-(--bg-color) text-(--text-color)",
-        "disabled:opacity-50 disabled:cursor-not-allowed",
+        "overflow-hidden p-5",
+        "bg-[var(--bg-color)] text-[var(--text-color)]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--shadow-color)]",
         t.base,
         t.shadow,
-        t.pressed,
-        t.active,
         className,
       )}
       style={
@@ -43,6 +42,6 @@ export function Button({
       }
       {...props}>
       {children}
-    </button>
+    </Tag>
   );
 }
